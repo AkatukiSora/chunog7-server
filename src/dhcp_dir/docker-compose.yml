@@ -1,0 +1,30 @@
+services:
+  dhcp4:
+    build: .
+    container_name: dhcp4
+    restart: unless-stopped
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./dhcpd.conf:/etc/dhcp/dhcpd.conf:ro
+      - dhcp4-leases:/var/lib/dhcp
+    command: ["dhcpd", "-f", "-d", "--no-pid", "-cf", "/etc/dhcp/dhcpd.conf"]
+
+  dhcp6:
+    build: .
+    container_name: dhcp6
+    restart: unless-stopped
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./dhcpd6.conf:/etc/dhcp/dhcpd6.conf:ro
+      - dhcp6-leases:/var/lib/dhcp
+    command: ["dhcpd", "-6", "-f", "-d", "--no-pid", "-cf", "/etc/dhcp/dhcpd6.conf"]
+
+volumes:
+  dhcp4-leases:
+  dhcp6-leases:
