@@ -1,0 +1,6 @@
+# Logstash 設定ファイル
+# Logstash 9.x では HTTP API 設定名が api.http.* に変更された
+
+# HTTP API（ヘルスチェック用）
+api.http.host: "0.0.0.0"
+api.http.port: 9600
